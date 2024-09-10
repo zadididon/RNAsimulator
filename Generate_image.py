@@ -27,20 +27,26 @@ def generate_fake_cell_image(img_size=64, num_spots=30, min_cells=1, max_cells=4
 
     
     for RNAspot in range(num_spots):
+        RNA_in_cell = torch.rand(1) < 0.5
        
-        cell_idx = torch.randint(0, len(cells), (1,)).item()
-        center_x, center_y, cell_radius = cells[cell_idx]
 
-        
-        spot_x = torch.normal(mean=float(center_x), std=float(cell_radius / 3), size=())
-        spot_y = torch.normal(mean=float(center_y), std=float(cell_radius / 3), size=())
 
-        
-        spot_x = int(min(max(spot_x, 0), img_size - 1))
-        spot_y = int(min(max(spot_y, 0), img_size - 1))
+        if RNA_in_cell:
+            cell_idx = torch.randint(0, len(cells), (1,)).item()
+            
+            spot_x = torch.normal(mean=float(center_x), std=float(cell_radius / 3), size=())
+            spot_y = torch.normal(mean=float(center_y), std=float(cell_radius / 3), size=())
+            
+            spot_x = int(min(max(spot_x, 0), img_size - 1))
+            spot_y = int(min(max(spot_y, 0), img_size - 1))
 
-        
-        for i in range(-spot_size, spot_size + 1):
+        else:
+            spot_x = torch.randint(0, img_size(1,))
+            spot_y = torch.randint(0, img_size(1,))
+
+
+
+        for i in range(spot_size, spot_size + 1):
             for j in range(-spot_size, spot_size + 1):
                 if 0 <= spot_x + i < img_size and 0 <= spot_y + j < img_size:
                     distance = (i ** 2 + j ** 2) ** 0.5
