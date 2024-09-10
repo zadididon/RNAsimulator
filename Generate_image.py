@@ -35,11 +35,11 @@ def generate_fake_cell_image(img_size=64, num_spots=30, min_cells=1, max_cells=4
         spot_x = torch.normal(mean=float(center_x), std=float(cell_radius / 3), size=())
         spot_y = torch.normal(mean=float(center_y), std=float(cell_radius / 3), size=())
 
-        # Ensure the spot is within the cell boundary
+        
         spot_x = int(min(max(spot_x, 0), img_size - 1))
         spot_y = int(min(max(spot_y, 0), img_size - 1))
 
-        # Draw the RNA spot
+        
         for i in range(-spot_size, spot_size + 1):
             for j in range(-spot_size, spot_size + 1):
                 if 0 <= spot_x + i < img_size and 0 <= spot_y + j < img_size:
